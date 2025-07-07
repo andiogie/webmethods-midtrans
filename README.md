@@ -48,3 +48,24 @@ localhost:5555/restv2/integration.thirdparty.midtrans.ws:midtransws/midtransws/{
 - **Headers:**
   - `Authorization`: `Basic {base64-encoded-server-key}`
   - `Accept`: `application/json`
+
+## 🗂 Folder Structure (webMethods)
+
+**Package:** `integration.thirdparty.midtrans`
+
+**Main Services:**
+
+- `checkStatus` → Call Midtrans and return transaction status  
+- `buildAuthHeader` → *(Optional)* Generate Base64 string from Server Key for Authorization header
+
+Each service is designed to be modular and reusable for future integrations with other payment gateways or APIs.
+
+---
+
+## 🙋‍♂️ About the Author
+
+Built by **Andi Ogie**, an integration engineer focused on simplifying enterprise API workflows, automation, and real-time system communication.
+
+🔗 **LinkedIn:** [linkedin.com/in/andiogie](https://linkedin.com/in/andiogie)
+
+Let’s connect, collaborate, and grow together in the integration space 🚀
