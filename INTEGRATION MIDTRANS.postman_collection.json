@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "264f71d8-cb0f-49b4-abbe-a340210b637e",
+		"name": "INTEGRATION MIDTRANS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7006800"
+	},
+	"item": [
+		{
+			"name": "Check Status webMethods",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "manage",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5555/restv2/integration.thirdparty.midtrans.ws:midtransws/1751724780856-1751724829767",
+					"host": [
+						"localhost"
+					],
+					"port": "5555",
+					"path": [
+						"restv2",
+						"integration.thirdparty.midtrans.ws:midtransws",
+						"1751724780856-1751724829767"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Charge",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic TWlkLXNlcnZlci1UMi1IOVZVZ09MMmdwMnhfTk1jLVU1cVM6",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"payment_type\": \"qris\",\r\n  \"transaction_details\": {\r\n    \"order_id\": \"ORDER-9876543210\",\r\n    \"gross_amount\": 150000\r\n  },\r\n  \"customer_details\": {\r\n    \"first_name\": \"Andi\",\r\n    \"last_name\": \"Ogie\",\r\n    \"email\": \"andi@example.com\",\r\n    \"phone\": \"08123456789\"\r\n  },\r\n  \"item_details\": [\r\n    {\r\n      \"id\": \"item-001\",\r\n      \"price\": 150000,\r\n      \"quantity\": 1,\r\n      \"name\": \"Paket Laundry Express\"\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sandbox.midtrans.com/v2/charge",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sandbox",
+						"midtrans",
+						"com"
+					],
+					"path": [
+						"v2",
+						"charge"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Charge Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic TWlkLXNlcnZlci1UMi1IOVZVZ09MMmdwMnhfTk1jLVU1cVM6",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"payment_type\": \"qris\",\r\n    \"transaction_details\": {\r\n        \"order_id\": \"WEBMETHODS-20250716-194415-23347\",\r\n        \"gross_amount\": 30000\r\n    },\r\n    \"customer_details\": {\r\n        \"first_name\": \"Andi\",\r\n        \"last_name\": \"Ogie\",\r\n        \"email\": \"test123@gmail.com\",\r\n        \"phone\": \"081122334455\"\r\n    },\r\n    \"item_details\": [\r\n        {\r\n            \"id\": \"ID-001\",\r\n            \"price\": 10000,\r\n            \"quantity\": 1,\r\n            \"name\": \"HP\"\r\n        },\r\n        {\r\n            \"id\": \"ID-002\",\r\n            \"price\": 10000,\r\n            \"quantity\": 1,\r\n            \"name\": \"HP 2\"\r\n        },\r\n        {\r\n            \"id\": \"ID-003\",\r\n            \"price\": 10000,\r\n            \"quantity\": 1,\r\n            \"name\": \"HP 3\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sandbox.midtrans.com/v2/charge",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sandbox",
+						"midtrans",
+						"com"
+					],
+					"path": [
+						"v2",
+						"charge"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Charge webMethods",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "manage",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic TWlkLXNlcnZlci1UMi1IOVZVZ09MMmdwMnhfTk1jLVU1cVM6",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"paymentType\": \"qris\",\r\n    \"grossAmount\": 30000,\r\n    \"firstName\": \"Andi\",\r\n    \"lastName\": \"Ogie\",\r\n    \"email\": \"test123@gmail.com\",\r\n    \"phone\": \"081122334455\",\r\n    \"item_details\": [\r\n        {\r\n            \"id\": \"ID-001\",\r\n            \"price\": 10000,\r\n            \"quantity\": 1,\r\n            \"name\": \"HP\"\r\n        },\r\n        {\r\n            \"id\": \"ID-002\",\r\n            \"price\": 10000,\r\n            \"quantity\": 1,\r\n            \"name\": \"HP 2\"\r\n        },\r\n        {\r\n            \"id\": \"ID-003\",\r\n            \"price\": 10000,\r\n            \"quantity\": 1,\r\n            \"name\": \"HP 3\"\r\n        }\r\n    ],\r\n    \"serverKey\":\"Mid-server-T2-H9VUgOL2gp2x_NMc-U5qS\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5555/restv2/integration.thirdparty.midtrans.ws:midtransws/midtransws/",
+					"host": [
+						"localhost"
+					],
+					"port": "5555",
+					"path": [
+						"restv2",
+						"integration.thirdparty.midtrans.ws:midtransws",
+						"midtransws",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
