@@ -1,71 +1,123 @@
 # 💳 webMethods × Midtrans Integration
 
-This project showcases how to integrate **Midtrans**, an Indonesian payment gateway, with **Software AG webMethods Integration Server**. It focuses on checking transaction status via Midtrans Core API using **REST** and **Base64-based Authorization**.
+description: >
+  This project showcases how to integrate Midtrans, an Indonesian payment gateway,
+  with Software AG webMethods Integration Server. It includes sending payment
+  transactions via /charge and checking their status via /status using REST and
+  Base64-based authorization.
 
 ---
 
 ## ✨ Key Features
 
-- ✅ Integration with **Midtrans Sandbox** environment  
-- ✅ Call Midtrans `GET /v2/{order_id}/status` from webMethods  
-- ✅ Create Basic Auth header (**Base64 of Server Key**)  
-- ✅ Use `pub.client:http` to call external APIs  
-- ✅ Parse JSON response into Document format  
-- ✅ Test via **Postman** or **webMethods REST endpoint**
+- Integration with Midtrans **Sandbox** environment
+- Send payments using `POST /v2/charge`
+- Check status using `GET /v2/{order_id}/status`
+- Basic Auth header using Base64(Server Key + ":")
+- Use `pub.client:http` to interact with external APIs
+- Parse JSON response to webMethods Document
+- Testable via Postman or REST endpoint
 
 ---
 
 ## 📦 Requirements
 
-- Software AG **webMethods Integration Server (IS) 10.x or above**  
-- **Midtrans Sandbox Account** ([Register here](https://dashboard.midtrans.com/register))  
-- **Server Key** from your Midtrans account (Sandbox only)  
-- Access to **webMethods Designer** / Developer to create Flow Services  
+- Software AG **webMethods Integration Server** (10.x+)
+- Midtrans **Sandbox Account** (register: https://dashboard.midtrans.com/register)
+- **Server Key** from Midtrans Dashboard (Sandbox tab)
+- Access to webMethods Designer / Developer
 
 ---
 
 ## 🛠️ Setup Guide
 
-1. **Register a Midtrans account** and set environment to **Sandbox**
-2. **Copy your Server Key** from Midtrans Dashboard → Sandbox tab
-3. **Create a Flow Service** in webMethods with the following:
-   - One input field: `order_id`
-   - Use `pub.client:http` to call:  
-     `https://api.sandbox.midtrans.com/v2/{order_id}/status`
-   - Build Authorization header using:  
-     `Basic Base64(ServerKey + ":")`
-   - Parse JSON response using:  
-     `pub.json:jsonStringToDocument`
-4. **Test via Postman** or from your REST-enabled Flow Service
+### 🔐 Authentication
+- Authentication: Type: Basic Auth
+- format: Base64(ServerKey + ":")
+- charge-flow:
+  - endpoint: POST /v2/charge
+  - url: https://api.sandbox.midtrans.com/v2/charge
+- headers:
+  - Content-Type: application/json
+  - Authorization: Basic {base64-encoded-server-key}
+- Sample Payload (webMethods Version)
+```yaml  
+{
+    "paymentType": "qris",
+    "grossAmount": 300000,
+    "firstName": "Andi",
+    "lastName": "Ogie",
+    "email": "test123@gmail.com",
+    "phone": "081122334455",
+    "item_details": [
+        {
+            "id": "ID-A01",
+            "price": 100000,
+            "quantity": 1,
+            "name": "Boneka Stich"
+        },
+        {
+            "id": "ID-A02",
+            "price": 100000,
+            "quantity": 1,
+            "name": "Boneka Labubu"
+        },
+        {
+            "id": "ID-A03",
+            "price": 100000,
+            "quantity": 1,
+            "name": "Boneka Spongebob"
+        }
+    ],
+    "serverKey":"Mid-server-T2-H9VUgOL2gp2x_NMc-U5qS"
+}
+```
 
-🧪 **Example REST endpoint (RESTv2)**:  
-localhost:5555/restv2/integration.thirdparty.midtrans.ws:midtransws/midtransws/{order-id}
+- status-flow:
+  - endpoint: GET /v2/{order_id}/status
+  - url: https://api.sandbox.midtrans.com/v2/{order_id}/status
+- Headers:
+  - Authorization: Basic {base64-encoded-server-key}
+  - Accept: application/json
+  
 
-## 📬 Testing via Postman
+## 🗂 Folder Structure
 
-- **Method:** `GET`  
-- **URL:** `https://api.sandbox.midtrans.com/v2/{order_id}/status`  
-- **Headers:**
-  - `Authorization`: `Basic {base64-encoded-server-key}`
-  - `Accept`: `application/json`
+package: integration.thirdparty.midtrans
 
-## 🗂 Folder Structure (webMethods)
-
-**Package:** `integration.thirdparty.midtrans`
-
-**Main Services:**
-
-- `checkStatus` → Call Midtrans and return transaction status  
-- `buildAuthHeader` → *(Optional)* Generate Base64 string from Server Key for Authorization header
-
-Each service is designed to be modular and reusable for future integrations with other payment gateways or APIs.
+services:
+  - chargePayment: Call Midtrans /charge endpoint
+  - checkStatus: Call Midtrans /status endpoint
+  - buildAuthHeader: Build Base64 Authorization
+  - generateOrderId: Custom order_id formatter
+  - parsePayloadAmounts: Convert strings to integers
 
 ---
 
-## 🙋‍♂️ About the Author
+## 🧪 Postman Testing
 
-Built by **Andi Ogie**, an integration engineer focused on simplifying enterprise API workflows, automation, and real-time system communication.
+```yaml
+test_charge:
+  method: POST
+  url: https://api.sandbox.midtrans.com/v2/charge
+  headers:
+    - Authorization: Basic {base64-encoded-server-key}
+    - Content-Type: application/json
 
-🔗 **LinkedIn:** [linkedin.com/in/andiogie](https://linkedin.com/in/andiogie)
+test_status:
+  method: GET
+  url: https://api.sandbox.midtrans.com/v2/{order_id}/status
+  headers:
+    - Authorization: Basic {base64-encoded-server-key}
+    - Accept: application/json
+```
 
-Let’s connect, collaborate, and grow together in the integration space 🚀
+## 🙋‍♂️ Author
+
+name: Andi Ogie  
+role: Integration Engineer  
+linkedin: https://linkedin.com/in/andiogie  
+notes: >
+  Focused on simplifying enterprise integration, API orchestration, and 
+  real-time data workflows using webMethods, REST, and modern Java services.
+
